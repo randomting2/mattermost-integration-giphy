@@ -19,13 +19,13 @@ logging.basicConfig(
     level=logging.INFO, format='[%(asctime)s] [%(levelname)s] %(message)s')
 app = Flask(__name__)
 
-phrase = ['Do it', 'Just do it', 'Don\'t let your dreams be dreams', 'Make your dreams come true \n Just do it', 'Yesterday you said tomorrow \n So just do it',
+phrase = ['Do it', 'Just do it', 'Don\'t let your dreams be dreams', 'Make your dreams come true  Just do it', 'Yesterday you said tomorrow so just do it',
  'Some people dream of success while you\'re gonna wake up and work hard at it', 'Nothing is impossible', 
- 'You should get to the point where anyone else would quit and you\'re not going to stop there \n No, what are you waiting for ?',
- 'Do it \n Just do it',
+ 'You should get to the point where anyone else would quit and you\'re not going to stop there  No, what are you waiting for ?',
+ 'Do it  Just do it',
 'Yes you can',
-'Just do it \n *flexing muscles*',
-'If you\'re tired of starting over \n Stop giving up',
+'Just do it  *flexing muscles*',
+'If you\'re tired of starting over, stop giving up',
 'https://www.youtube.com/watch?v=ZXsQAXx_ao0'
 ]
 

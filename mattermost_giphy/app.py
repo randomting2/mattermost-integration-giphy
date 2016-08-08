@@ -44,6 +44,7 @@ def new_post():
     Mattermost new post event handler
     """
     try:
+        print "ici"
         # NOTE: common stuff
         slash_command = False
         resp_data = {}

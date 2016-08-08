@@ -56,8 +56,8 @@ def new_post():
         if not 'token' in data:
             raise Exception('Missing necessary token in the post data')
 
-        if MATTERMOST_GIPHY_TOKEN.find(data['token']) == -1:
-            raise Exception('Tokens did not match, it is possible that this request came from somewhere other than Mattermost')
+        #if MATTERMOST_GIPHY_TOKEN.find(data['token']) == -1:
+        #    raise Exception('Tokens did not match, it is possible that this request came from somewhere other than Mattermost')
 
         # NOTE: support the slash command
         if 'command' in data:

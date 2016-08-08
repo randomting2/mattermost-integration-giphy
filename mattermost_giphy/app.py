@@ -34,7 +34,7 @@ def root():
     """
     Home handler
     """
-
+    print "la" 
     return "OK"
 
 

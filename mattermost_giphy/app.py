@@ -29,7 +29,7 @@ phrase = ['Do it', 'Just do it', 'Don\'t let your dreams be dreams', 'Make your 
 'https://www.youtube.com/watch?v=ZXsQAXx_ao0'
 ]
 
-@app.route('/')
+@app.route('/new_post')
 def root():
     """
     Home handler
@@ -38,7 +38,7 @@ def root():
     return "OK"
 
 
-@app.route('/new_post', methods=['POST'])
+@app.route('/', methods=['POST'])
 def new_post():
     """
     Mattermost new post event handler

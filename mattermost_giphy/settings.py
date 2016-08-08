@@ -2,7 +2,7 @@
 import os
 
 # username the bot posts as
-USERNAME = os.environ.get('USERNAME', 'giphy')
+USERNAME = os.environ.get('USERNAME', 'ShiaLebot')
 
 # display picture the bot posts with
 ICON_URL = os.environ.get('ICON_URL', 'https://avatars0.githubusercontent.com/u/3588525?v=3&s=200')

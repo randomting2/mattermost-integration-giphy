@@ -7,6 +7,7 @@ from urlparse import urlsplit
 from urlparse import urlunsplit
 
 import requests
+import random
 from flask import Flask
 from flask import request
 from flask import Response
@@ -18,6 +19,15 @@ logging.basicConfig(
     level=logging.INFO, format='[%(asctime)s] [%(levelname)s] %(message)s')
 app = Flask(__name__)
 
+phrase = ['Do it', 'Just do it', 'Don\'t let your dreams be dreams', 'Make your dreams come true \n Just do it', 'Yesterday you said tomorrow \n So just do it',
+ 'Some people dream of success while you\'re gonna wake up and work hard at it', 'Nothing is impossible', 
+ 'You should get to the point where anyone else would quit and you\'re not going to stop there \n No, what are you waiting for ?',
+ 'Do it \n Just do it',
+'Yes you can',
+'Just do it \n *flexing muscles*',
+'If you\'re tired of starting over \n Stop giving up',
+'https://www.youtube.com/watch?v=ZXsQAXx_ao0'
+]
 
 @app.route('/')
 def root():
@@ -53,19 +63,8 @@ def new_post():
             slash_command = True
             resp_data['response_type'] = 'in_channel'
 
-        translate_text = data['text']
-        if not slash_command:
-            translate_text = data['text'][len(data['trigger_word']):]
-
-        if not translate_text:
-            raise Exception("No translate text provided, not hitting Giphy")
-
-        gif_url = giphy_translate(translate_text)
-        if not gif_url:
-            raise Exception('No gif url found for `{}`'.format(translate_text))
-
-        resp_data['text'] = '''`{}` searched for {}
-    {}'''.format(data.get('user_name', 'unknown').title(), translate_text, gif_url)
+        motivation = random.choice(phrase)
+        resp_data['text'] = motivation
     except Exception as err:
         msg = err.message
         logging.error('unable to handle new post :: {}'.format(msg))
@@ -74,30 +73,3 @@ def new_post():
         resp = Response(content_type='application/json')
         resp.set_data(json.dumps(resp_data))
         return resp
-
-
-def giphy_translate(text):
-    """
-    Giphy translate method, uses the Giphy API to find an appropriate gif url
-    """
-    try:
-        params = {}
-        params['s'] = text
-        params['rating'] = RATING
-        params['api_key'] = GIPHY_API_KEY
-
-        resp = requests.get('{}://api.giphy.com/v1/gifs/translate'.format(SCHEME), params=params, verify=True)
-
-        if resp.status_code is not requests.codes.ok:
-            logging.error('Encountered error using Giphy API, text=%s, status=%d, response_body=%s' % (text, resp.status_code, resp.json()))
-            return None
-
-        resp_data = resp.json()
-
-        url = list(urlsplit(resp_data['data']['images']['original']['url']))
-        url[0] = SCHEME.lower()
-
-        return urlunsplit(url)
-    except Exception as err:
-        logging.error('unable to translate giphy :: {}'.format(err))
-        return None

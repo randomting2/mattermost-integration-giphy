@@ -65,7 +65,9 @@ def new_post():
             resp_data['response_type'] = 'in_channel'
 
         motivation = random.choice(phrase)
-        resp_data['text'] = motivation
+        #resp_data['text'] = motivation
+        resp_data['text'] = '''`{}` asked for motivation :\n
+    {}'''.format(data.get('user_name').title(), motivation)
     except Exception as err:
         msg = err.message
         logging.error('unable to handle new post :: {}'.format(msg))

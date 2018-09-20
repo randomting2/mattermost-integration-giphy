@@ -66,7 +66,7 @@ def new_post():
             slash_command = True
             resp_data['response_type'] = 'in_channel'
         if data.get('channel_name')==u'bingo':
-            if data.get('text')==u'in'
+            if data.get('text')==u'in':
                 print "the good channel to be in"
         print '''`{}` is registered!'''.format(data.get('user_name').title())
         motivation = random.choice(phrase)

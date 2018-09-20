@@ -36,7 +36,6 @@ def new_post():
     """
     try:
         bo = True
-        print "ici"
         # NOTE: common stuff
         slash_command = False
         resp_data = {}

@@ -58,7 +58,7 @@ def new_post():
             resp_data['response_type'] = 'in_channel'
         if data.get('channel_name')==u'bingo':
             if data.get('text').lower()==u'in':
-                print '''<div title="player-name-`{}`">`{}`</div> !'''.format(datetime.datetime.today().strftime('%Y-%m-%d')
+                print '''<div title="player-name-{}">{}</div> !'''.format(datetime.datetime.today().strftime('%Y-%m-%d')
 ,data.get('user_name').title())
                 resp_data['text'] = '''`{}` joined the game! Be ready at  1p.m. :\n'''.format(data.get('user_name').title())
     except Exception as err:

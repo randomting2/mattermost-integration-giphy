@@ -53,6 +53,9 @@ def new_post():
 
         data = request.form
         print data
+        if data.get('channel_name')==u'bingo':
+            print "the good channel to be in"
+        print '''`{}` is registered!'''.format(data.get('user_name').title())
 
         if not 'token' in data:
             raise Exception('Missing necessary token in the post data')

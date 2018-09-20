@@ -45,6 +45,7 @@ def new_post():
     """
     try:
         print "ici"
+        print data
         # NOTE: common stuff
         slash_command = False
         resp_data = {}

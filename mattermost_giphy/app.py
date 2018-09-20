@@ -53,9 +53,7 @@ def new_post():
 
         data = request.form
         print data
-        if data.get('channel_name')==u'bingo':
-            print "the good channel to be in"
-        print '''`{}` is registered!'''.format(data.get('user_name').title())
+
 
         if not 'token' in data:
             raise Exception('Missing necessary token in the post data')
@@ -67,7 +65,10 @@ def new_post():
         if 'command' in data:
             slash_command = True
             resp_data['response_type'] = 'in_channel'
-
+        if data.get('channel_name')==u'bingo':
+            if data.get('text')==u'in'
+                print "the good channel to be in"
+        print '''`{}` is registered!'''.format(data.get('user_name').title())
         motivation = random.choice(phrase)
         #resp_data['text'] = motivation
         resp_data['text'] = '''`{}` asked for motivation :\n

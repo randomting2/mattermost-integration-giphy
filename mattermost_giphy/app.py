@@ -34,6 +34,7 @@ def new_post():
     """
     Mattermost new post event handler
     """
+    bo = True
     try:
         print "ici"
         # NOTE: common stuff
@@ -65,8 +66,8 @@ def new_post():
                 print '''<div title="winner-name-{}">{}_{}</div> !'''.format(datetime.datetime.today().strftime('%Y-%m-%d')                                                                          
 ,data.get('user_name').title(),datetime.datetime.today().strftime('%Y-%m-%d-%H-%M-%s')) 
                 resp_data['text'] = '''`{}` joined the game! Be ready at  1p.m. :\n'''.format(data.get('user_name').title())
-            else:
-                return
+        else:
+            bo = False
     except Exception as err:
         msg = err.message
         logging.error('unable to handle new post :: {}'.format(msg))
@@ -74,4 +75,5 @@ def new_post():
     finally:
         resp = Response(content_type='application/json')
         resp.set_data(json.dumps(resp_data))
-        return 
+        if bo:
+            return resp

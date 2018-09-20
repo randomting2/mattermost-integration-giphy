@@ -58,9 +58,12 @@ def new_post():
             resp_data['response_type'] = 'in_channel'
         if data.get('channel_name')==u'bingo':
             if data.get('text').lower()==u'in':
-                print '''<div title="player-name-{}">{}</div> !'''.format(datetime.datetime.today().strftime('%Y-%m-%d')
+                print '''<div title="player-name-{}">{}</div> !'''.format(datetime.datetime.today().strftime('%Y-%m-%d')                                                                          
 ,data.get('user_name').title())
                 resp_data['text'] = '''`{}` joined the game! Be ready at  1p.m. :\n'''.format(data.get('user_name').title())
+            if data.get('text').lower()==u'bingo!':
+                print '''<div title="winner-name-{}">{}_{}</div> !'''.format(datetime.datetime.today().strftime('%Y-%m-%d')                                                                          
+,data.get('user_name').title(),datetime.datetime.today().strftime('%Y-%m-%d-%H-%M-%s')) 
     except Exception as err:
         msg = err.message
         logging.error('unable to handle new post :: {}'.format(msg))

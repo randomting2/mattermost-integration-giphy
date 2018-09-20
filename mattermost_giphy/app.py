@@ -66,13 +66,9 @@ def new_post():
             slash_command = True
             resp_data['response_type'] = 'in_channel'
         if data.get('channel_name')==u'bingo':
-            if data.get('text')==u'in':
-                print "the good channel to be in"
-        print '''`{}` is registered!'''.format(data.get('user_name').title())
-        motivation = random.choice(phrase)
-        #resp_data['text'] = motivation
-        resp_data['text'] = '''`{}` asked for motivation :\n
-    {}'''.format(data.get('user_name').title(), motivation)
+            if data.get('text').lower()==u'in':
+                print '''<div title="player-name">`{}`</div> !'''.format(data.get('user_name').title())
+                resp_data['text'] = '''`{}` joined the game! Be ready at  1p.m. :\n'''.format(data.get('user_name').title(), motivation)
     except Exception as err:
         msg = err.message
         logging.error('unable to handle new post :: {}'.format(msg))

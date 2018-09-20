@@ -64,6 +64,9 @@ def new_post():
             if data.get('text').lower()==u'bingo!':
                 print '''<div title="winner-name-{}">{}_{}</div> !'''.format(datetime.datetime.today().strftime('%Y-%m-%d')                                                                          
 ,data.get('user_name').title(),datetime.datetime.today().strftime('%Y-%m-%d-%H-%M-%s')) 
+                resp_data['text'] = '''`{}` joined the game! Be ready at  1p.m. :\n'''.format(data.get('user_name').title())
+            else:
+                return
     except Exception as err:
         msg = err.message
         logging.error('unable to handle new post :: {}'.format(msg))

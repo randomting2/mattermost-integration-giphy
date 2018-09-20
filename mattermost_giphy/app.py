@@ -34,8 +34,8 @@ def new_post():
     """
     Mattermost new post event handler
     """
-    bo = True
     try:
+        bo = True
         print "ici"
         # NOTE: common stuff
         slash_command = False
@@ -44,8 +44,6 @@ def new_post():
         resp_data['icon_url'] = ICON_URL
 
         data = request.form
-        print data
-
 
         if not 'token' in data:
             raise Exception('Missing necessary token in the post data')

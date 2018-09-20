@@ -60,7 +60,7 @@ def new_post():
                 print '''<div title="player-name-{}">{}_{}</div> !'''.format((datetime.datetime.today()+datetime.timedelta(hours=+2)).strftime('%Y-%m-%d')                                                                          
 ,data.get('user_name').title(),(datetime.datetime.today()+datetime.timedelta(hours=+2)).strftime('%Y-%m-%d-%H-%M')) 
                 resp_data['text'] = '''`{}` joined the game! Be ready at  1p.m. :\n'''.format(data.get('user_name').title())
-            if data.get('text').lower()==u'bingo!':
+            elif data.get('text').lower()==u'bingo!':
                 print '''<div title="winner-name-{}">{}_{}</div> !'''.format((datetime.datetime.today()+datetime.timedelta(hours=+2)).strftime('%Y-%m-%d')                                                                          
 ,data.get('user_name').title(),(datetime.datetime.today()+datetime.timedelta(hours=+2)).strftime('%Y-%m-%d-%H-%M-%s')) 
                 resp_data['text'] = '''`{}` joined the game! Be ready at  1p.m. :\n'''.format(data.get('user_name').title())

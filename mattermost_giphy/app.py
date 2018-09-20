@@ -8,6 +8,7 @@ from urlparse import urlunsplit
 
 import requests
 import random
+import datetime
 from flask import Flask
 from flask import request
 from flask import Response
@@ -18,16 +19,6 @@ from mattermost_giphy.settings import *
 logging.basicConfig(
     level=logging.INFO, format='[%(asctime)s] [%(levelname)s] %(message)s')
 app = Flask(__name__)
-
-phrase = ['Do it', 'Just do it', 'Don\'t let your dreams be dreams', 'Make your dreams come true  Just do it', 'Yesterday you said tomorrow so just do it',
- 'Some people dream of success while you\'re gonna wake up and work hard at it', 'Nothing is impossible', 
- 'You should get to the point where anyone else would quit and you\'re not going to stop there  No, what are you waiting for ?',
- 'Do it  Just do it',
-'Yes you can',
-'Just do it  *flexing muscles*',
-'If you\'re tired of starting over, stop giving up',
-'https://www.youtube.com/watch?v=ZXsQAXx_ao0'
-]
 
 @app.route('/new_post')
 def root():
@@ -67,7 +58,8 @@ def new_post():
             resp_data['response_type'] = 'in_channel'
         if data.get('channel_name')==u'bingo':
             if data.get('text').lower()==u'in':
-                print '''<div title="player-name">`{}`</div> !'''.format(data.get('user_name').title())
+                print '''<div title="player-name-`{}`">`{}`</div> !'''.format(datetime.datetime.today().strftime('%Y-%m-%d')
+,data.get('user_name').title())
                 resp_data['text'] = '''`{}` joined the game! Be ready at  1p.m. :\n'''.format(data.get('user_name').title())
     except Exception as err:
         msg = err.message

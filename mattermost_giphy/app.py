@@ -43,7 +43,7 @@ def new_post():
         resp_data['icon_url'] = ICON_URL
 
         data = request.form
-
+        print data
         if not 'token' in data:
             raise Exception('Missing necessary token in the post data')
 

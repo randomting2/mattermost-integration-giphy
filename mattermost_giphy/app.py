@@ -43,7 +43,6 @@ def new_post():
         resp_data['icon_url'] = ICON_URL
 
         data = request.form
-        print data
         if not 'token' in data:
             raise Exception('Missing necessary token in the post data')
 
@@ -56,9 +55,12 @@ def new_post():
             resp_data['response_type'] = 'in_channel'
         if data.get('channel_name')==u'bingo':
             if data.get('text').lower()==u'in':
-                print '''<div title="player-name-{}">{}_{}</div> !'''.format((datetime.datetime.today()+datetime.timedelta(hours=+2)).strftime('%Y-%m-%d')                                                                          
+                if (datetime.datetime.today().strftime('%H')>=10) and (datetime.datetime.today().strftime('%H')<=11) 
+                    print '''<div title="player-name-{}">{}_{}</div> !'''.format((datetime.datetime.today()+datetime.timedelta(hours=+2)).strftime('%Y-%m-%d')                                                                          
 ,data.get('user_name').title(),(datetime.datetime.today()+datetime.timedelta(hours=+2)).strftime('%Y-%m-%d-%H-%M')) 
-                resp_data['text'] = '''`{}` joined the game! Be ready at  1p.m. :\n'''.format(data.get('user_name').title())
+                    resp_data['text'] = '''`{}` joined the game! Be ready at  1p.m. :\n'''.format(data.get('user_name').title())
+                else:
+                    resp_data['text'] = '''`{}` is a little too late! See ya tomorrow! :\n'''.format(data.get('user_name').title())
             elif data.get('text').lower()==u'bingo!':
                 print '''<div title="winner-name-{}">{}_{}</div> !'''.format((datetime.datetime.today()+datetime.timedelta(hours=+2)).strftime('%Y-%m-%d')                                                                          
 ,data.get('user_name').title(),(datetime.datetime.today()+datetime.timedelta(hours=+2)).strftime('%Y-%m-%d-%H-%M-%s')) 

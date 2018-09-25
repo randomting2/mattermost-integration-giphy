@@ -58,13 +58,13 @@ def new_post():
                 if (datetime.datetime.today().strftime('%H')>=10) and (datetime.datetime.today().strftime('%H')<=11): 
                     print '''<div title="player-name-{}">{}_{}</div> !'''.format((datetime.datetime.today()+datetime.timedelta(hours=+2)).strftime('%Y-%m-%d')                                                                          
 ,data.get('user_name').title(),(datetime.datetime.today()+datetime.timedelta(hours=+2)).strftime('%Y-%m-%d-%H-%M')) 
-                    resp_data['text'] = '''`{}` joined the game! Be ready at  1p.m. :\n'''.format(data.get('user_name').title())
+                    resp_data['text'] = '''`{}` joined the game! Be ready at  1p.m.\n'''.format(data.get('user_name').title())
                 else:
-                    resp_data['text'] = '''`{}` is a little too late! See ya tomorrow! :\n'''.format(data.get('user_name').title())
+                    resp_data['text'] = '''`{}` is a little too late! See ya tomorrow!\n'''.format(data.get('user_name').title())
             elif data.get('text').lower()==u'bingo!':
                 print '''<div title="winner-name-{}">{}_{}</div> !'''.format((datetime.datetime.today()+datetime.timedelta(hours=+2)).strftime('%Y-%m-%d')                                                                          
 ,data.get('user_name').title(),(datetime.datetime.today()+datetime.timedelta(hours=+2)).strftime('%Y-%m-%d-%H-%M-%s')) 
-                resp_data['text'] = '''`{}` joined the game! Be ready at  1p.m. :\n'''.format(data.get('user_name').title())
+                resp_data['text'] = '''`{}` just claimed a bingo! \n'''.format(data.get('user_name').title())
             else:
                 bo = False
         else:

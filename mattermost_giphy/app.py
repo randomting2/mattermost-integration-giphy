@@ -55,7 +55,7 @@ def new_post():
             resp_data['response_type'] = 'in_channel'
         if data.get('channel_name')==u'bingo':
             if data.get('text').lower()==u'in':
-                if ((datetime.datetime.today()+datetime.timedelta(hours=+2)).strftime('%H')>=10) and ((datetime.datetime.today()+datetime.timedelta(hours=+2)).strftime('%H')<=12): 
+                if (int((datetime.datetime.today()+datetime.timedelta(hours=+2)).strftime('%H'))>=10) and (int((datetime.datetime.today()+datetime.timedelta(hours=+2)).strftime('%H'))<=12): 
                     print '''<div title="player-name-{}">{}</div> !'''.format((datetime.datetime.today()+datetime.timedelta(hours=+2)).strftime('%Y-%m-%d')                                                                          
 ,data.get('user_name').title()) 
                     resp_data['text'] = '''`{}` joined the game! Be ready at  1p.m.\n'''.format(data.get('user_name').title())

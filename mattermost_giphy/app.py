@@ -68,7 +68,7 @@ def new_post():
                         print((datetime.datetime.today()+datetime.timedelta(hours=+2)).strftime('%H'))
                         resp_data['text'] = '''`{}` is a little too late! See ya next week!\n'''.format(data.get('user_name').title())  
                 elif data.get('text').lower()==u'bingo!':
-                    if (int((datetime.datetime.today()+datetime.timedelta(hours=+2)).strftime('%H'))==14) and (int((datetime.datetime.today()).strftime('%M'))>=15):                
+                    if (int((datetime.datetime.today()+datetime.timedelta(hours=+2)).strftime('%H'))==13) and (int((datetime.datetime.today()).strftime('%M'))>=45):                
                         print '''<div title="winner-name-{}">{}_{}</div> !'''.format((datetime.datetime.today()+datetime.timedelta(hours=+2)).strftime('%Y-%m-%d')                                                                          
             ,data.get('user_name').title(),(datetime.datetime.today()+datetime.timedelta(hours=+2)).strftime('%Y-%m-%d-%H-%M-%s')) 
                         resp_data['text'] = '''`{}` just claimed a bingo! \n'''.format(data.get('user_name').title())

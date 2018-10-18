@@ -72,8 +72,10 @@ def new_post():
                         print '''<div title="winner-name-{}">{}_{}</div> !'''.format((datetime.datetime.today()+datetime.timedelta(hours=+2)).strftime('%Y-%m-%d')                                                                          
             ,data.get('user_name').title(),(datetime.datetime.today()+datetime.timedelta(hours=+2)).strftime('%Y-%m-%d-%H-%M-%s')) 
                         resp_data['text'] = '''`{}` just claimed a bingo! \n'''.format(data.get('user_name').title())
+                    elif (int((datetime.datetime.today()+datetime.timedelta(hours=+2)).strftime('%H'))>13):
+                        resp_data['text'] = '''It's too late to bingo !\n'''.format(data.get('user_name').title())
                     else:
-                        resp_data['text'] = '''It's too soon to bingo !\n'''.format(data.get('user_name').title())
+                        resp_data['text'] = '''It's too soon to bingo !\n'''.format(data.get('user_name').title())                        
                 else:
                     bo = False
             else:

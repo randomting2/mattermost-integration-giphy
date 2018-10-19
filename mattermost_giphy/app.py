@@ -54,7 +54,7 @@ def new_post():
         if 'command' in data:
             slash_command = True
             resp_data['response_type'] = 'in_channel'
-        if data.get('channel_name')==u'testttttt':
+        if data.get('channel_name')==u'bingochan':
             if datetime.datetime.today().weekday() == 4:    
                 if data.get('text').lower()==u'in':
                     if (int((datetime.datetime.today()+datetime.timedelta(hours=+2)).strftime('%H'))>=10) and (int((datetime.datetime.today()+datetime.timedelta(hours=+2)).strftime('%H'))<=11): 

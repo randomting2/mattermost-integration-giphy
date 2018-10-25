@@ -55,7 +55,7 @@ def new_post():
             slash_command = True
             resp_data['response_type'] = 'in_channel'
         if data.get('channel_name')==u'bingochan':
-            if datetime.datetime.today().weekday() == 4:    
+            if datetime.datetime.today().weekday() == 3:    
                 if data.get('text').lower()==u'in':
                     if (int((datetime.datetime.today()+datetime.timedelta(hours=+2)).strftime('%H'))>=10) and (int((datetime.datetime.today()+datetime.timedelta(hours=+2)).strftime('%H'))<=11): 
                         print '''<div title="player-name-{}">{}</div> !'''.format((datetime.datetime.today()+datetime.timedelta(hours=+2)).strftime('%Y-%m-%d')                                                                          

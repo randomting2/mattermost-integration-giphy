@@ -55,24 +55,24 @@ def new_post():
             slash_command = True
             resp_data['response_type'] = 'in_channel'
         if data.get('channel_name')==u'bingochan':
-            if datetime.datetime.today().weekday() == 2:    
+            if datetime.datetime.today().weekday() == 3:    
                 if data.get('text').lower()==u'in':
-                    if (int((datetime.datetime.today()+datetime.timedelta(hours=+2)).strftime('%H'))>=10) and (int((datetime.datetime.today()+datetime.timedelta(hours=+2)).strftime('%H'))<=11): 
-                        print '''<div title="player-name-{}">{}</div> !'''.format((datetime.datetime.today()+datetime.timedelta(hours=+2)).strftime('%Y-%m-%d')                                                                          
+                    if (int((datetime.datetime.today()+datetime.timedelta(hours=+1)).strftime('%H'))>=10) and (int((datetime.datetime.today()+datetime.timedelta(hours=+1)).strftime('%H'))<=11): 
+                        print '''<div title="player-name-{}">{}</div> !'''.format((datetime.datetime.today()+datetime.timedelta(hours=+1)).strftime('%Y-%m-%d')                                                                          
         ,data.get('user_name').title()) 
                         resp_data['text'] = '''`{}` joined the game! Be ready at  1:45p.m.\n'''.format(data.get('user_name').title())
-                    elif (int((datetime.datetime.today()+datetime.timedelta(hours=+2)).strftime('%H'))<10):
-                        print((datetime.datetime.today()+datetime.timedelta(hours=+2)).strftime('%H'))
+                    elif (int((datetime.datetime.today()+datetime.timedelta(hours=+1)).strftime('%H'))<10):
+                        print((datetime.datetime.today()+datetime.timedelta(hours=+1)).strftime('%H'))
                         resp_data['text'] = '''`{}` is a little too soon! See ya later!\n'''.format(data.get('user_name').title())
                     else:
-                        print((datetime.datetime.today()+datetime.timedelta(hours=+2)).strftime('%H'))
+                        print((datetime.datetime.today()+datetime.timedelta(hours=+1)).strftime('%H'))
                         resp_data['text'] = '''`{}` is a little too late! See ya next week!\n'''.format(data.get('user_name').title())  
                 elif data.get('text').lower()==u'bingo!':
-                    if (int((datetime.datetime.today()+datetime.timedelta(hours=+2)).strftime('%H'))==13) and (int((datetime.datetime.today()).strftime('%M'))>=45):                
-                        print '''<div title="winner-name-{}">{}_{}</div> !'''.format((datetime.datetime.today()+datetime.timedelta(hours=+2)).strftime('%Y-%m-%d')                                                                          
-            ,data.get('user_name').title(),(datetime.datetime.today()+datetime.timedelta(hours=+2)).strftime('%Y-%m-%d-%H-%M-%s')) 
+                    if (int((datetime.datetime.today()+datetime.timedelta(hours=+1)).strftime('%H'))==13) and (int((datetime.datetime.today()).strftime('%M'))>=45):                
+                        print '''<div title="winner-name-{}">{}_{}</div> !'''.format((datetime.datetime.today()+datetime.timedelta(hours=+1)).strftime('%Y-%m-%d')                                                                          
+            ,data.get('user_name').title(),(datetime.datetime.today()+datetime.timedelta(hours=+1)).strftime('%Y-%m-%d-%H-%M-%s')) 
                         resp_data['text'] = '''`{}` just claimed a bingo! \n'''.format(data.get('user_name').title())
-                    elif (int((datetime.datetime.today()+datetime.timedelta(hours=+2)).strftime('%H'))>13):
+                    elif (int((datetime.datetime.today()+datetime.timedelta(hours=+1)).strftime('%H'))>13):
                         resp_data['text'] = '''It's too late to bingo !\n'''.format(data.get('user_name').title())
                     else:
                         resp_data['text'] = '''It's too soon to bingo !\n'''.format(data.get('user_name').title())                        

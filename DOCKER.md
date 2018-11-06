@@ -1,7 +1,7 @@
 ## How to
-The following procedure shows how to install this project using Docker. It describe how to configure Mattermost and run the Docker image of this integration.
+The following procedure shows how to install this project using Docker. It describes how to configure Mattermost and run the Docker image of this integration.
 
-To install this project using Docker, you will need Docker Engine installed on your machine. Procedure to install Docker can be found [here](https://docs.docker.com/engine/installation/)
+To install this project using Docker, you will need Docker Engine installed on your machine. Procedure to install Docker can be found [here](https://docs.docker.com/engine/installation/).
 
 Here's how to start:
 

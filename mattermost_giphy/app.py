@@ -57,7 +57,7 @@ def new_post():
         if data.get('channel_name')==u'bingochan':
             if datetime.datetime.today().weekday() == 3:    
                 if data.get('text').lower()==u'in':
-                    if (int((datetime.datetime.today()+datetime.timedelta(hours=+1)).strftime('%H'))>=10) and (int((datetime.datetime.today()+datetime.timedelta(hours=+1)).strftime('%H'))<=11): 
+                    if (int((datetime.datetime.today()+datetime.timedelta(hours=+1)).strftime('%H'))>=10) and (int((datetime.datetime.today()+datetime.timedelta(hours=+1)).strftime('%H'))<=13): 
                         print '''<div title="player-name-{}">{}</div> !'''.format((datetime.datetime.today()+datetime.timedelta(hours=+1)).strftime('%Y-%m-%d')                                                                          
         ,data.get('user_name').title()) 
                         resp_data['text'] = '''`{}` joined the game! Be ready at  1:45p.m.\n'''.format(data.get('user_name').title())

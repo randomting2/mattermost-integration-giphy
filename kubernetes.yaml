@@ -1,24 +1,33 @@
-apiVersion: v1
-kind: Pod
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: mattermost-integration-giphy
   labels:
     app: mattermost-integration-giphy
 spec:
-  containers:
-    - name: mattermost-integration-giphy
-      image: numberly/mattermost-integration-giphy
-      env:
-        - name: MATTERMOST_GIPHY_TOKEN
-          valueFrom:
-            secretKeyRef:
-              name: mattermost-integration-giphy
-              key: mattermost-token
-      ports:
-        - containerPort: 5000
-      resources:
-        limits:
-          cpu: "0.1"
+  selector:
+    matchLabels:
+      app: mattermost-integration-giphy
+  template:
+    metadata:
+      name: mattermost-integration-giphy
+      labels:
+        app: mattermost-integration-giphy
+    spec:
+      containers:
+        - name: mattermost-integration-giphy
+          image: numberly/mattermost-integration-giphy
+          env:
+            - name: MATTERMOST_GIPHY_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: mattermost-integration-giphy
+                  key: mattermost-token
+          ports:
+            - containerPort: 5000
+          resources:
+            limits:
+              cpu: "0.1"
 ---
 apiVersion: v1
 kind: Service

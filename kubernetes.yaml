@@ -34,10 +34,21 @@ kind: Service
 metadata:
   name: mattermost-integration-giphy
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   selector:
     app: mattermost-integration-giphy
   ports:
     - port: 80
       protocol: TCP
       targetPort: 5000
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: mattermost-integration-giphy
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  backend:
+    serviceName: mattermost-integration-giphy
+    servicePort: 80

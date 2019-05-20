@@ -10,6 +10,9 @@ ICON_URL = os.environ.get('ICON_URL', 'https://avatars0.githubusercontent.com/u/
 # the maximum parental rating of gifs posted
 RATING = os.environ.get('RATING', 'pg')
 
+# value from 0-10 which makes results more or less weird/random/wtf
+WEIRDNESS = os.environ.get('WEIRDNESS', 0)
+
 # scheme to be used for the gif url return to mattermost
 SCHEME = os.environ.get('SCHEME', 'https')
 

@@ -16,8 +16,8 @@ from flask import Flask
 from flask import Response
 from flask import request
 
-from mattermost_giphy.settings import USERNAME, ICON_URL, RATING, SCHEME, \
-    GIPHY_API_KEY, MATTERMOST_GIPHY_TOKEN
+from mattermost_giphy.settings import USERNAME, ICON_URL, RATING, WEIRDNESS, \
+    SCHEME, GIPHY_API_KEY, MATTERMOST_GIPHY_TOKEN
 
 
 logging.basicConfig(
@@ -90,6 +90,7 @@ def giphy_translate(text):
         params = {}
         params['s'] = text
         params['rating'] = RATING
+        params['weirdness'] = WEIRDNESS
         params['api_key'] = GIPHY_API_KEY
 
         resp = requests.get('{}://api.giphy.com/v1/gifs/translate'.format(SCHEME), params=params, verify=True)

@@ -3,8 +3,6 @@ import logging
 import os
 import sys
 import json
-from urlparse import urlsplit
-from urlparse import urlunsplit
 
 import requests
 import random

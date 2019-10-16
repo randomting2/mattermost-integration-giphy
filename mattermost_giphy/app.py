@@ -1,45 +1,41 @@
 # -*- coding: utf-8 -*-
-import json
 import logging
-import random
-import re
-
-try:
-    from urllib.parse import urlsplit
-    from urllib.parse import urlunsplit
-except ImportError:
-    from urlparse import urlsplit
-    from urlparse import urlunsplit
+import os
+import sys
+import json
+from urlparse import urlsplit
+from urlparse import urlunsplit
 
 import requests
+import random
+import datetime
 from flask import Flask
-from flask import Response
 from flask import request
+from flask import Response
 
-from mattermost_giphy.settings import USERNAME, ICON_URL, RATING, WEIRDNESS, \
-    SCHEME, GIPHY_API_KEY, MATTERMOST_GIPHY_TOKEN
+from mattermost_giphy.settings import *
 
 
 logging.basicConfig(
     level=logging.INFO, format='[%(asctime)s] [%(levelname)s] %(message)s')
 app = Flask(__name__)
 
-
-@app.route('/')
+@app.route('/new_post')
 def root():
     """
     Home handler
     """
-
+    print("la") 
     return "OK"
 
 
-@app.route('/new_post', methods=['POST'])
+@app.route('/', methods=['POST'])
 def new_post():
     """
     Mattermost new post event handler
     """
     try:
+        bo = True
         # NOTE: common stuff
         slash_command = False
         resp_data = {}
@@ -47,31 +43,45 @@ def new_post():
         resp_data['icon_url'] = ICON_URL
 
         data = request.form
-
-        if 'token' not in data:
+        print data
+        if not 'token' in data:
             raise Exception('Missing necessary token in the post data')
 
-        if data['token'] not in MATTERMOST_GIPHY_TOKEN:
-            raise Exception('Tokens did not match, it is possible that this request came from somewhere other than Mattermost')
+        #if MATTERMOST_GIPHY_TOKEN.find(data['token']) == -1:
+        #    raise Exception('Tokens did not match, it is possible that this request came from somewhere other than Mattermost')
 
         # NOTE: support the slash command
         if 'command' in data:
             slash_command = True
             resp_data['response_type'] = 'in_channel'
-
-        translate_text = data['text']
-        if not slash_command:
-            translate_text = data['text'][len(data['trigger_word']):]
-
-        if not translate_text:
-            raise Exception("No translate text provided, not hitting Giphy")
-
-        gif_url = translate(translate_text)
-        if not gif_url:
-            raise Exception('No gif url found for `{}`'.format(translate_text))
-
-        resp_data['text'] = '''`{}` searched for {}
-    {}'''.format(data.get('user_name', 'unknown').title(), translate_text, gif_url)
+        if data.get('channel_name')==u'bingochan':
+            if datetime.datetime.today().weekday() == 3:    
+                if data.get('text').lower()==u'in':
+                    if (int((datetime.datetime.today()+datetime.timedelta(hours=+2)).strftime('%H'))>=10) and (int((datetime.datetime.today()+datetime.timedelta(hours=+2)).strftime('%H'))<=13): 
+                        print('<div title="player-name-{}">{}</div> !'.format((datetime.datetime.today()+datetime.timedelta(hours=+1).strftime('%Y-%m-%d') )                                                                         
+        ,data.get('user_name').title()) )
+                        resp_data['text'] = '''`{}` joined the game! Be ready at  1:45p.m.\n'''.format(data.get('user_name').title())
+                    elif (int((datetime.datetime.today()+datetime.timedelta(hours=+2)).strftime('%H'))<10):
+                        print((datetime.datetime.today()+datetime.timedelta(hours=+2)).strftime('%H'))
+                        resp_data['text'] = '''`{}` is a little too soon! See ya later!\n'''.format(data.get('user_name').title())
+                    else:
+                        print((datetime.datetime.today()+datetime.timedelta(hours=+2)).strftime('%H'))
+                        resp_data['text'] = '''`{}` is a little too late! See ya next week!\n'''.format(data.get('user_name').title())  
+                elif data.get('text').lower()==u'bingo!':
+                    if (int((datetime.datetime.today()+datetime.timedelta(hours=+2)).strftime('%H'))>=13) and (int((datetime.datetime.today()).strftime('%M'))>=00):                
+                        print('<div title="winner-name-{}">{}_{}</div> !'.format((datetime.datetime.today()+datetime.timedelta(hours=+2)).strftime('%Y-%m-%d')                                                                          
+            ,data.get('user_name').title(),(datetime.datetime.today()+datetime.timedelta(hours=+2)).strftime('%Y-%m-%d-%H-%M-%s'))) 
+                        resp_data['text'] = '''`{}` just claimed a bingo! \n'''.format(data.get('user_name').title())
+                    elif (int((datetime.datetime.today()+datetime.timedelta(hours=+2)).strftime('%H'))>13):
+                        resp_data['text'] = '''It's too late to bingo !\n'''.format(data.get('user_name').title())
+                    else:
+                        resp_data['text'] = '''It's too soon to bingo !\n'''.format(data.get('user_name').title())                        
+                else:
+                    bo = False
+            else:
+                resp_data['text'] = '''Sorry `{}`, there is no bingo today, see you on Thursday!\n'''.format(data.get('user_name').title())     
+        else:
+            bo = False
     except Exception as err:
         msg = err.message
         logging.error('unable to handle new post :: {}'.format(msg))
@@ -79,64 +89,5 @@ def new_post():
     finally:
         resp = Response(content_type='application/json')
         resp.set_data(json.dumps(resp_data))
-        return resp
-
-
-def giphy_translate(text):
-    """
-    Giphy translate method, uses the Giphy API to find an appropriate gif url
-    """
-    try:
-        params = {}
-        params['s'] = text
-        params['rating'] = RATING
-        params['weirdness'] = WEIRDNESS
-        params['api_key'] = GIPHY_API_KEY
-
-        resp = requests.get('{}://api.giphy.com/v1/gifs/translate'.format(SCHEME), params=params, verify=True)
-
-        if resp.status_code is not requests.codes.ok:
-            logging.error('Encountered error using Giphy API, text=%s, status=%d, response_body=%s' % (text, resp.status_code, resp.json()))
-            return None
-
-        resp_data = resp.json()
-
-        url = list(urlsplit(resp_data['data']['images']['original']['url']))
-        url[0] = SCHEME.lower()
-
-        return urlunsplit(url)
-    except Exception as err:
-        logging.error('unable to translate giphy :: {}'.format(err))
-        return None
-
-
-def translate(text):
-    """
-    Search for a #Command with format '#Command <text>'.  If there is one, process the command.  If not, search giphy
-    """
-    match = re.match(r'\#(\w+)\s+((?:\w|\s)+)', text, flags=0)
-    return giphy_translate(text) if match is None else process_command(match.group(1),match.group(2))
-
-
-def process_command(command, text):
-    """
-    Process a #Command and return the Giphy Url.  If command is not found, return giphy URL for command and text.
-    """
-    transforms = {
-      'magic8ball': lambda x: giphy_translate(random.choice(['Yes',
-                                                             'Absolutely',
-                                                             'Yep',
-                                                             'Hell Yeah',
-                                                             'Affirmative',
-                                                             'No',
-                                                             'Absolutely Not',
-                                                             'Nope',
-                                                             'Hell No',
-                                                             'Negative',
-                                                             'Dont Know',
-                                                             'Maybe',
-                                                             'Dunno',
-                                                             'Clueless',
-                                                             'Shrug']))
-    }
-    return transforms[command.lower()](text) if command.lower() in transforms else giphy_translate("#{} {}".format(command, text))
+        if bo:
+            return resp

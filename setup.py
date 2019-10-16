@@ -6,18 +6,18 @@ from setuptools import find_packages
 
 def version():
     if not os.path.isdir(".git"):
-        print "This does not appear to be a Git repository."
+        print("This does not appear to be a Git repository.")
         return
     try:
         p = subprocess.Popen(["git", "describe",
                               "--tags", "--always"],
                              stdout=subprocess.PIPE)
     except EnvironmentError:
-        print "unable to run git, leaving ecdsa/_version.py alone"
+        print("unable to run git, leaving ecdsa/_version.py alone")
         return
     stdout = p.communicate()[0]
     if p.returncode != 0:
-        print "unable to run git, leaving ecdsa/_version.py alone"
+        print("unable to run git, leaving ecdsa/_version.py alone")
         return
     return stdout[:-1]
 

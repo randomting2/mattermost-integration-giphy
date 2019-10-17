@@ -52,9 +52,13 @@ def new_post():
         if 'command' in data:
             slash_command = True
             resp_data['response_type'] = 'in_channel'
+            print("1")
         if data.get('channel_name')==u'bingochan':
-            if datetime.datetime.today().weekday() == 3:    
+            print("2")
+            if datetime.datetime.today().weekday() == 3:
+                print("3")
                 if data.get('text').lower()==u'in':
+                    print("4")
                     if (int((datetime.datetime.today()+datetime.timedelta(hours=+2)).strftime('%H'))>=10) and (int((datetime.datetime.today()+datetime.timedelta(hours=+2)).strftime('%H'))<=13): 
                         print('<div title="player-name-{}">{}</div> !'.format((datetime.datetime.today()+datetime.timedelta(hours=+1).strftime('%Y-%m-%d') )                                                                         
         ,data.get('user_name').title()) )
@@ -80,6 +84,7 @@ def new_post():
             else:
                 resp_data['text'] = '''Sorry `{}`, there is no bingo today, see you on Thursday!\n'''.format(data.get('user_name').title())     
         else:
+            print("10")
             bo = False
     except Exception as err:
         msg = err.message

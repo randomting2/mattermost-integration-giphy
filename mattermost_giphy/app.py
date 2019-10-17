@@ -58,6 +58,7 @@ def new_post():
                     if (int((datetime.datetime.today()+datetime.timedelta(hours=+2)).strftime('%H'))>=10) and (int((datetime.datetime.today()+datetime.timedelta(hours=+2)).strftime('%H'))<=13): 
                         print('<div title="player-name-{}">{}</div> !'.format((datetime.datetime.today()+datetime.timedelta(hours=+1).strftime('%Y-%m-%d') )                                                                         
         ,data.get('user_name').title()) )
+                        print("la")
                         resp_data['text'] = '''`{}` joined the game! Be ready at  1:45p.m.\n'''.format(data.get('user_name').title())
                     elif (int((datetime.datetime.today()+datetime.timedelta(hours=+2)).strftime('%H'))<10):
                         print((datetime.datetime.today()+datetime.timedelta(hours=+2)).strftime('%H'))

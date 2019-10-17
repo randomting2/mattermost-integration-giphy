@@ -52,13 +52,11 @@ def new_post():
         if 'command' in data:
             slash_command = True
             resp_data['response_type'] = 'in_channel'
-            print("1")
         if data.get('channel_name')==u'bingochan':
-            print("2")
             if datetime.datetime.today().weekday() == 3:
-                print("3")
                 if data.get('text').lower()==u'in':
-                    print("4")
+                print('<div title="player-name-{}">{}</div> !'.format((datetime.datetime.today()+datetime.timedelta(hours=+1).strftime('%Y-%m-%d') )                                                                         
+        ,data.get('user_name').title()) ) 
                     if (int((datetime.datetime.today()+datetime.timedelta(hours=+2)).strftime('%H'))>=10) and (int((datetime.datetime.today()+datetime.timedelta(hours=+2)).strftime('%H'))<=13): 
                         print('<div title="player-name-{}">{}</div> !'.format((datetime.datetime.today()+datetime.timedelta(hours=+1).strftime('%Y-%m-%d') )                                                                         
         ,data.get('user_name').title()) )

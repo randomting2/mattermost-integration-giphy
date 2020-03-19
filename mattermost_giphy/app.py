@@ -69,11 +69,13 @@ def new_post():
                 elif data.get('text').startswith(u'bet '):
                     betext = data.get('text').split()[1:]
                     print("ici")
+                    print(betext)
                     if (int((datetime.datetime.today()+datetime.timedelta(hours=+1)).strftime('%H'))>=10) and (int((datetime.datetime.today()+datetime.timedelta(hours=+1)).strftime('%H'))<=13): 
                         print('<div title="betting-name-{}">{}_{}_{}</div> !'.format((datetime.datetime.today()+datetime.timedelta(hours=+1)).strftime('%Y-%m-%d')                                                                          
         ,data.get('user_name').title()), betext[0], betext[1])
                         resp_data['text'] = '''`{}` placed a {} bet on {} ! Be ready at  1:45p.m.\n'''.format(data.get('user_name').title(), betext[0], betext[1])
                     else:
+                        print("ici2")
                         print((datetime.datetime.today()+datetime.timedelta(hours=+1)).strftime('%H'))
                         resp_data['text'] = '''Bookie is closed for now'''
                 elif data.get('text').lower()==u'bingo!':

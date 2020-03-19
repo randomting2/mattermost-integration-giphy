@@ -72,7 +72,7 @@ def new_post():
                     print(betext)
                     if (int((datetime.datetime.today()+datetime.timedelta(hours=+1)).strftime('%H'))>=10) and (int((datetime.datetime.today()+datetime.timedelta(hours=+1)).strftime('%H'))<=13): 
                         print('<div title="betting-name-{}">{}_{}_{}</div> !'.format((datetime.datetime.today()+datetime.timedelta(hours=+1)).strftime('%Y-%m-%d')                                                                          
-        ,data.get('user_name').title()), betext[0], betext[1])
+        ,data.get('user_name').title(), betext[0], betext[1]))
                         resp_data['text'] = '''`{}` placed a {} bet on {} ! Be ready at  1:45p.m.\n'''.format(data.get('user_name').title(), betext[0], betext[1])
                     else:
                         print("ici2")

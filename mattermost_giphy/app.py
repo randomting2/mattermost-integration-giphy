@@ -66,7 +66,7 @@ def new_post():
                     else:
                         print((datetime.datetime.today()+datetime.timedelta(hours=+1)).strftime('%H'))
                         resp_data['text'] = '''`{}` is a little too late! See ya next week!\n'''.format(data.get('user_name').title())  
-                elif data.get('text').startswith()==u'bet ':
+                elif data.get('text').startswith("bet "):
                     betext = data.get('text').split()[1:]
                     if (int((datetime.datetime.today()+datetime.timedelta(hours=+1)).strftime('%H'))>=10) and (int((datetime.datetime.today()+datetime.timedelta(hours=+1)).strftime('%H'))<=13): 
                         print('<div title="betting-name-{}">{}_{}_{}</div> !'.format((datetime.datetime.today()+datetime.timedelta(hours=+1)).strftime('%Y-%m-%d')                                                                          
